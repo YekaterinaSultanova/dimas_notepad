@@ -7,14 +7,15 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
-    static List<Person> records = new ArrayList<>();
+    static List<Record> records = new ArrayList<>(); //spisok Recordsom sdelali abstraktnim, tam mozhno teperj hranitj ne toljko spisok Personov
 
     public static void main(String[] args) {
         for (; ; ) {
             System.out.print("cmd: ");
             String cmd = scanner.next();
             switch (cmd) {
-                case "create":
+                case "cp": // mezhdu nimi net break i poetomu mozhno vvoditj bistro cp = create person
+                case "createPerson":
                     createPerson();
                     break;
                 case "help":
@@ -25,6 +26,10 @@ public class Main {
                 case "list":
                     showList();
                     break;
+                case "st":
+                case "StickyNotes":
+                    createStickyNotes();
+                    break;
                 case "exit":
                     return;
                 default:
@@ -33,11 +38,19 @@ public class Main {
         }
     }
 
+    private static void createStickyNotes() {
+        String txt = askString("Enter Text: ");
+        StickyNotes sn = new StickyNotes();
+        sn.getText();
+        records.add(sn);
+    }
+
+
     private static void deleteRecordById() {
         int id = askInt("ID to delete");
         for (int i = 0; i < records.size(); i++) {
-            Person p = records.get(i);
-            if (p.getId() == id) {
+            Record r = records.get(i);
+            if (r.getId() == id) {
                 records.remove(i);
                 break;
             }
@@ -72,7 +85,7 @@ public class Main {
     }
 
     public static String askString(String msg) {
-        for (;;) {
+        for (; ; ) {
             System.out.print(msg + ": ");
             String val = scanner.next();
             if (!val.startsWith("\"")) {
