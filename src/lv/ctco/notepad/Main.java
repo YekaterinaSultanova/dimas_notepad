@@ -17,7 +17,7 @@ public class Main {
             String cmd = scanner.next();
             switch (cmd) {
                 case "search":
-                    Search();
+                    search();
                     break;
                 case "cp": // mezhdu nimi net break i poetomu mozhno vvoditj bistro cp = create person
                 case "createPerson":
