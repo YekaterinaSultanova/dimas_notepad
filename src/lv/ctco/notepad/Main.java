@@ -1,5 +1,7 @@
 package lv.ctco.notepad;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +17,7 @@ public class Main {
             String cmd = scanner.next();
             switch (cmd) {
                 case "search":
-                    createSearch();
+                    Search();
                     break;
                 case "cp": // mezhdu nimi net break i poetomu mozhno vvoditj bistro cp = create person
                 case "createPerson":
@@ -65,6 +67,14 @@ public class Main {
     }
 
     private static void showHelp() {
+    }
+
+    private static void search() {
+        String ss = askString("What do you want to find?");
+
+        records.stream()
+                .filter(r -> r.contains(ss))
+                .forEach(System.out::println);
     }
 
     private static void createRecord(Record record) {
