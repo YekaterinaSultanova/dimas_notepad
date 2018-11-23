@@ -1,6 +1,6 @@
 package lv.ctco.notepad;
 
-public class Record {
+public abstract class Record { //komanda new ne budet rabotatj dlja recorda
     private static int counter = 0;
     private int id;
 
@@ -10,7 +10,11 @@ public class Record {
         id = counter;
     }
 
+    public abstract boolean contains(String str);
+    public abstract void askData();
+
     public int getId() {
         return id;
     }
+
 }

@@ -17,4 +17,14 @@ public class StickyNotes extends Record {
                 "text='" + text + '\'' +
                 '}';
     }
+
+    @Override //kak budet prohoditj poisk podstroki STR
+    public boolean contains(String str) {
+        return text.contains(str);
+    }
+
+    @Override
+    public void askData() {
+        text = Main.askString("Enter Text: ");
+    }
 }

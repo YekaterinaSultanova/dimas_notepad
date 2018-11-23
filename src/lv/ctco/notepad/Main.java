@@ -14,9 +14,12 @@ public class Main {
             System.out.print("cmd: ");
             String cmd = scanner.next();
             switch (cmd) {
+                case "search":
+                    createSearch();
+                    break;
                 case "cp": // mezhdu nimi net break i poetomu mozhno vvoditj bistro cp = create person
                 case "createPerson":
-                    createPerson();
+                    createRecord(new Person());
                     break;
                 case "help":
                     showHelp();
@@ -28,7 +31,7 @@ public class Main {
                     break;
                 case "st":
                 case "StickyNotes":
-                    createStickyNotes();
+                    createRecord(new StickyNotes());
                     break;
                 case "exit":
                     return;
@@ -38,13 +41,12 @@ public class Main {
         }
     }
 
-    private static void createStickyNotes() {
-        String txt = askString("Enter Text: ");
-        StickyNotes sn = new StickyNotes();
-        sn.getText();
-        records.add(sn);
+    private static void createSearch() {
+        String ss = askString("What do you want to find?");
+        for (Record r : records) {
+            System.out.println(r);
+        }
     }
-
 
     private static void deleteRecordById() {
         int id = askInt("ID to delete");
@@ -63,25 +65,12 @@ public class Main {
     }
 
     private static void showHelp() {
-
     }
 
-    private static void createPerson() {
-        Person p = new Person();
-
-        String firstName = askString("First Name");
-        p.setFirstName(firstName);
-
-        String lastName = askString("Last Name");
-        p.setLastName(lastName);
-
-        String email = askString("Email");
-        p.setEmail(email);
-
-        String phone = askPhone("Phone");
-        p.setPhone(phone);
-
-        records.add(p);
+    private static void createRecord(Record record) {
+        record.askData();
+        records.add(record);
+        System.out.println(record);
     }
 
     public static String askString(String msg) {
@@ -134,4 +123,5 @@ public class Main {
         }
     }
 }
+
 
