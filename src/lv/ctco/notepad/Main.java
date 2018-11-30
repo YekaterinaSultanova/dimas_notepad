@@ -1,13 +1,21 @@
 package lv.ctco.notepad;
 
+import com.sun.org.apache.xerces.internal.impl.dv.DTDDVFactory;
 import com.sun.org.apache.xpath.internal.SourceTree;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.time.format.DateTimeFormatter.*;
+
 
 public class Main {
+    public static final String DATE_PATTERN = "uuuu-MM-dd"; //final = constanta (bolwimi bukvami), nelza pomenjatj zna4enije posle inicializacii
+    //public static final - eto konstanta ona neizmenna
+    public static final DateTimeFormatter DATE_FORMATTER = ofPattern(DATE_PATTERN); //static import - stti4eskij metod vzal i mozhno ispolzovatj bez klassa
     static Scanner scanner = new Scanner(System.in);
     static List<Record> records = new ArrayList<>(); //spisok Recordsom sdelali abstraktnim, tam mozhno teperj hranitj ne toljko spisok Personov
 
@@ -19,9 +27,17 @@ public class Main {
                 case "search":
                     search();
                     break;
+                case "cr":
+                case "createReminder":
+                    createRecord(new Reminder());
+                    break;
                 case "cp": // mezhdu nimi net break i poetomu mozhno vvoditj bistro cp = create person
                 case "createPerson":
                     createRecord(new Person());
+                    break;
+                case "cn":
+                case "createNote":
+                    createNote(new StickyNotes());
                     break;
                 case "help":
                     showHelp();
@@ -35,12 +51,26 @@ public class Main {
                 case "StickyNotes":
                     createRecord(new StickyNotes());
                     break;
+                case "alarm":
+                case "SetAlarm":
+                    createAlarm(new Alarm());
+                    break;
                 case "exit":
                     return;
                 default:
                     System.out.println("Wrong command. Try 'help'");
             }
         }
+    }
+
+    private static void createAlarm() {
+
+    }
+
+    private static void createNote(StickyNotes stickyNotes) {
+        record.askString();
+        records.add(StickyNotes);
+        System.out.println(records);
     }
 
     private static void createSearch() {
@@ -84,7 +114,7 @@ public class Main {
     }
 
     public static String askString(String msg) {
-        for (; ; ) {
+        for (;;) {
             System.out.print(msg + ": ");
             String val = scanner.next();
             if (!val.startsWith("\"")) {
@@ -131,6 +161,11 @@ public class Main {
 
             return result;
         }
+    }
+
+    public static LocalDate askDate(String msg) {
+        String strDate = askString(msg);
+        return LocalDate.parse(strDate, DATE_FORMATTER);
     }
 }
 
